@@ -1,20 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
 import './index.css';
 
-class App extends React.Component {
-  render(){
-    return (
-      <div>hi!</div>
-    );
-  }
-}
+import App from './components/app';
+import { Router, browserHitory } from 'react-router';
+import routes from './routes';
+// import reducers from './reducers';
 
+const createStoreWithMiddleware = applyMiddleware()(createStore);
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <Provider store={createStoreWithMiddleware(reducers)}>
+    <Router history={browserHistory} routes={routes}/>
+  </Provider>,
   document.getElementById('root')
 );
 
